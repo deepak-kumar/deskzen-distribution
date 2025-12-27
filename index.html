@@ -1,188 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeskZen: Visual Focus for macOS</title>
-    <meta name="description" content="Instantly hide desktop icons and silence notifications with one click.">
+    <title>DeskZen | Instant Desktop Focus</title>
+    <meta name="description"
+        content="Reclaim your workspace. Hide desktop icons and silence notifications with one click.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0F172A;
-            --text-color: #F8FAFC;
-            --accent-color: #38BDF8;
-            --secondary-text: #94A3B8;
-            --card-bg: #1E293B;
+            --bg: #030712;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Fluid Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            filter: blur(80px);
+            opacity: 0.6;
+        }
+
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+        }
+
+        .blob-2 {
+            background: linear-gradient(135deg, #A855F7, #EC4899);
+            width: 500px;
+            height: 500px;
+            left: 50%;
+            top: 20%;
+            animation: move 25s infinite alternate-reverse;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(-20%, -20%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(40%, 40%) rotate(360deg);
+            }
         }
 
         .container {
-            max-width: 960px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 2rem;
         }
 
-        header {
-            text-align: center;
-            padding: 80px 0 40px;
+        /* Navigation */
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInDown 1s ease-out;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #A7F3D0 0%, #38BDF8 100%);
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--secondary-text);
-            margin-bottom: 40px;
-        }
-
-        .download-btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #0F172A;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin: 60px 0;
-        }
-
-        .feature-card {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .feature-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
-
-        .screenshot-section {
-            text-align: center;
-            margin: 80px 0;
-        }
-
-        .screenshot-container {
             display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 20px;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #030712;
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px var(--accent-glow);
+            filter: brightness(1.1);
+        }
+
+        /* Section Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Showcase Carousel */
+        .showcase {
+            margin: 4rem 0 8rem;
+            perspective: 1000px;
+        }
+
+        .showcase-inner {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
 
-        .app-screenshot {
-            height: 400px;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        /* For images that might be landscape */
-        .app-screenshot.landscape {
-            height: auto;
-            width: 80%;
-            max-width: 800px;
+        .mockup {
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 1.5rem;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--glass-border);
+            transform: rotateX(5deg) scale(0.95);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
+        .mockup:hover {
+            transform: rotateX(0deg) scale(1);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 8rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, var(--accent-glow), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card i {
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gallery Reveal Style */
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 8rem;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 1rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.6s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        /* Footer */
         footer {
+            padding: 8rem 0 4rem;
             text-align: center;
-            padding: 40px 0;
-            color: var(--secondary-text);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 60px;
+            border-top: 1px solid var(--glass-border);
         }
 
-        footer a {
-            color: var(--secondary-text);
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
             text-decoration: none;
-            margin: 0 10px;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        footer a:hover {
-            color: var(--accent-color);
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-inner {
+                height: 300px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <header>
-        <h1>DeskZen</h1>
-        <p class="subtitle">One-Click Desktop Clean & Focus</p>
-        <a href="#" class="download-btn">Download on the Mac App Store</a>
-    </header>
-
-    <div class="screenshot-section">
-        <!-- Placeholder for the first screenshot found in the directory -->
-        <img src="images/Screenshot 2025-12-27 at 6.29.36 PM.png" alt="DeskZen Screenshot" class="app-screenshot landscape">
+    <div class="ambient-bg">
+        <div class="blob"></div>
+        <div class="blob-2"></div>
     </div>
 
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">👁️</div>
-            <div class="feature-title">Hide Clutter Instantly</div>
-            <p>One click to toggle all desktop icons. Perfect for screen sharing, presentations, or just a moment of clarity.</p>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16 4C10.4772 4 6 8.47715 6 14C6 19.5228 10.4772 24 16 24C21.5228 24 26 19.5228 26 14C26 8.47715 21.5228 4 16 4Z"
+                        stroke="url(#paint0_linear)" stroke-width="3" />
+                    <path d="M11 14C11 11.2386 13.2386 9 16 9C18.7614 9 21 11.2386 21 14" stroke="white"
+                        stroke-width="3" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="6" y1="4" x2="26" y2="24" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#38BDF8" />
+                            <stop offset="1" stop-color="#818CF8" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                DeskZen
+            </div>
+            <div class="cta-group">
+                <a href="mailto:support@deskzen.app" class="footer-links"
+                    style="margin:0; align-self:center">Support</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>Simplify <br>Your Focus</h1>
+            <p>Reclaim your digital workspace with one-click desktop cleaning and notification silencing.</p>
+            <div class="cta-group">
+                <a href="#" class="btn btn-primary">
+                    Download on App Store
+                </a>
+            </div>
+        </section>
+
+        <div class="showcase reveal">
+            <div class="showcase-inner">
+                <img src="images/sc1.png" alt="DeskZen Interface" class="mockup">
+            </div>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔔</div>
-            <div class="feature-title">Silence Noise</div>
-            <p>Instantly toggle System Do Not Disturb. Stop annoying notification banners and sounds when you need to focus.</p>
+
+        <section class="features">
+            <div class="card reveal">
+                <i>👁️</i>
+                <h3>Infinite Clarity</h3>
+                <p>Instantly hide all desktop icons. No more visual noise during meetings or focused work hours.</p>
+            </div>
+            <div class="card reveal">
+                <i>�</i>
+                <h3>Absolute Silence</h3>
+                <p>One pull to silence all pings. Toggle system-wide Focus mode instantly from your menu bar.</p>
+            </div>
+            <div class="card reveal">
+                <i>💊</i>
+                <h3>State at a Glance</h3>
+                <p>Smart "Pill" indicators change colors to reflect your current mode. Green, Blue, Orange, or Purple.
+                </p>
+            </div>
+        </section>
+
+        <div class="gallery">
+            <img src="images/sc2.png" alt="DeskZen Toggle" class="reveal">
+            <img src="images/sc3.png" alt="DeskZen Settings" class="reveal">
+            <img src="images/sc4.png" alt="DeskZen Full Zen" class="reveal" style="grid-column: span 2">
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">🍃</div>
-            <div class="feature-title">Visual Status</div>
-            <p>Beautiful, high-contrast "Pill" indicators in your menu bar show you exactly what state your desk is in.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <div class="feature-title">Privacy First</div>
-            <p>No data collection. No tracking. DeskZen runs entirely on your device with zero network activity.</p>
-        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:support@deskzen.app">Contact</a>
+            </div>
+            <div class="copyright">
+                &copy; 2024 DeskZen. Crafted for simplicity.
+            </div>
+        </footer>
     </div>
 
-    <footer>
-        <p>&copy; 2024 DeskZen. All rights reserved.</p>
-        <p>
-            <a href="privacy.html">Privacy Policy</a> • 
-            <a href="mailto:support@deskzen.app">Support</a>
-        </p>
-    </footer>
-</div>
+    <script>
+        // Reveal animations on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Mouse glow effect
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.querySelector('.blob').style.left = `${x - 20}%`;
+            document.querySelector('.blob').style.top = `${y - 20}%`;
+        });
+    </script>
 
 </body>
+
 </html>
