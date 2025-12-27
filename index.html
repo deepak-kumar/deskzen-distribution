@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeskZen: Visual Focus for macOS</title>
+    <meta name="description" content="Instantly hide desktop icons and silence notifications with one click.">
+    <style>
+        :root {
+            --bg-color: #0F172A;
+            --text-color: #F8FAFC;
+            --accent-color: #38BDF8;
+            --secondary-text: #94A3B8;
+            --card-bg: #1E293B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #A7F3D0 0%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-text);
+            margin-bottom: 40px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #0F172A;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .screenshot-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .screenshot-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            justify-content: center;
+        }
+
+        .app-screenshot {
+            height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* For images that might be landscape */
+        .app-screenshot.landscape {
+            height: auto;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--secondary-text);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>DeskZen</h1>
+        <p class="subtitle">One-Click Desktop Clean & Focus</p>
+        <a href="#" class="download-btn">Download on the Mac App Store</a>
+    </header>
+
+    <div class="screenshot-section">
+        <!-- Placeholder for the first screenshot found in the directory -->
+        <img src="images/Screenshot 2025-12-27 at 6.29.36 PM.png" alt="DeskZen Screenshot" class="app-screenshot landscape">
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">👁️</div>
+            <div class="feature-title">Hide Clutter Instantly</div>
+            <p>One click to toggle all desktop icons. Perfect for screen sharing, presentations, or just a moment of clarity.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔔</div>
+            <div class="feature-title">Silence Noise</div>
+            <p>Instantly toggle System Do Not Disturb. Stop annoying notification banners and sounds when you need to focus.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🍃</div>
+            <div class="feature-title">Visual Status</div>
+            <p>Beautiful, high-contrast "Pill" indicators in your menu bar show you exactly what state your desk is in.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">Privacy First</div>
+            <p>No data collection. No tracking. DeskZen runs entirely on your device with zero network activity.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 DeskZen. All rights reserved.</p>
+        <p>
+            <a href="privacy.html">Privacy Policy</a> • 
+            <a href="mailto:support@deskzen.app">Support</a>
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>
