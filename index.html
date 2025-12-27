@@ -14,13 +14,16 @@
         rel="stylesheet">
     <style>
         :root {
-            --bg: #030712;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.3);
-            --text: #f8fafc;
+            --bg: #0a0f18;
+            --card-bg: rgba(16, 24, 39, 0.6);
+            --accent: #10b981;
+            /* Zen Green */
+            --accent-secondary: #3b82f6;
+            /* Trust Blue */
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --text: #f1f5f9;
             --text-muted: #94a3b8;
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -52,35 +55,35 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
-            filter: blur(80px);
-            opacity: 0.6;
+            filter: blur(100px);
+            opacity: 0.5;
         }
 
         .blob {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--accent), transparent 70%);
             border-radius: 50%;
-            animation: move 20s infinite alternate;
+            animation: move 25s infinite alternate;
         }
 
         .blob-2 {
-            background: linear-gradient(135deg, #A855F7, #EC4899);
-            width: 500px;
-            height: 500px;
-            left: 50%;
-            top: 20%;
-            animation: move 25s infinite alternate-reverse;
+            background: radial-gradient(circle, var(--accent-secondary), transparent 70%);
+            width: 600px;
+            height: 600px;
+            left: 40%;
+            top: 30%;
+            animation: move 30s infinite alternate-reverse;
         }
 
         @keyframes move {
             from {
-                transform: translate(-20%, -20%) rotate(0deg);
+                transform: translate(-25%, -25%) rotate(0deg);
             }
 
             to {
-                transform: translate(40%, 40%) rotate(360deg);
+                transform: translate(35%, 35%) rotate(360deg);
             }
         }
 
@@ -92,83 +95,99 @@
 
         /* Navigation */
         nav {
-            padding: 2rem 0;
+            padding: 1.5rem 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             animation: fadeInDown 1s ease-out;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 9px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         /* Hero Section */
         .hero {
-            padding: 6rem 0;
+            padding: 8rem 0 4rem;
             text-align: center;
             position: relative;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3.5rem, 9vw, 6.5rem);
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
+            line-height: 1.05;
+            margin-bottom: 2rem;
             animation: fadeInUp 1s ease-out;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #f8fafc 30%, #94a3b8 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 3rem;
+            max-width: 650px;
+            margin: 0 auto 3.5rem;
             animation: fadeInUp 1s ease-out 0.2s both;
+            line-height: 1.6;
         }
 
         .cta-group {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.25rem;
             justify-content: center;
             animation: fadeInUp 1s ease-out 0.4s both;
         }
 
         .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 100px;
+            padding: 1.1rem 2.8rem;
+            border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            font-size: 1.05rem;
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: #030712;
-            box-shadow: 0 10px 20px var(--accent-glow);
+            background: var(--text);
+            color: var(--bg);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px var(--accent-glow);
-            filter: brightness(1.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.15);
+            background: #ffffff;
         }
 
         /* Section Reveal */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reveal.active {
@@ -176,121 +195,105 @@
             transform: translateY(0);
         }
 
-        /* Showcase Carousel */
+        /* Showcase */
         .showcase {
-            margin: 4rem 0 8rem;
-            perspective: 1000px;
-        }
-
-        .showcase-inner {
-            position: relative;
-            width: 100%;
-            height: 600px;
+            margin: 6rem 0 10rem;
             display: flex;
-            align-items: center;
             justify-content: center;
         }
 
         .mockup {
-            width: 90%;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 1050px;
             border-radius: 1.5rem;
-            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
             border: 1px solid var(--glass-border);
-            transform: rotateX(5deg) scale(0.95);
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .mockup:hover {
-            transform: rotateX(0deg) scale(1);
+            transform: scale(1.01) translateY(-10px);
         }
 
         /* Features */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 8rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 10rem;
         }
 
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            padding: 3rem;
-            border-radius: 2rem;
+            backdrop-filter: blur(20px);
+            padding: 3.5rem;
+            border-radius: 2.5rem;
             border: 1px solid var(--glass-border);
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top left, var(--accent-glow), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .card:hover::before {
-            opacity: 1;
+            transform: translateY(-15px);
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 24, 39, 0.8);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
         }
 
         .card i {
-            display: block;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            color: var(--accent);
         }
 
         .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            font-weight: 700;
         }
 
         .card p {
             color: var(--text-muted);
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
+            line-height: 1.8;
+            font-size: 1.1rem;
         }
 
-        /* Gallery Reveal Style */
+        /* Gallery */
         .gallery {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 8rem;
+            gap: 2.5rem;
+            margin-bottom: 10rem;
         }
 
         .gallery img {
             width: 100%;
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transition: transform 0.6s ease;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .gallery img:hover {
-            transform: scale(1.02);
-            z-index: 10;
+            transform: scale(1.03) translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .gallery img.full {
+            grid-column: span 2;
         }
 
         /* Footer */
         footer {
-            padding: 8rem 0 4rem;
+            padding: 6rem 0 4rem;
             text-align: center;
             border-top: 1px solid var(--glass-border);
         }
@@ -298,31 +301,37 @@
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin-bottom: 2rem;
+            gap: 4rem;
+            margin-bottom: 3rem;
         }
 
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
         }
 
         .footer-links a:hover {
             color: var(--accent);
+            letter-spacing: 0.15em;
         }
 
         .copyright {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            opacity: 0.8;
         }
 
         /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(60px);
             }
 
             to {
@@ -334,7 +343,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-40px);
             }
 
             to {
@@ -344,21 +353,25 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
             .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
+                font-size: 3.5rem;
             }
 
             .gallery {
                 grid-template-columns: 1fr;
             }
 
-            .showcase-inner {
-                height: 300px;
+            .gallery img.full {
+                grid-column: span 1;
+            }
+
+            .hero {
+                padding: 6rem 0 2rem;
+            }
+
+            .card {
+                padding: 2.5rem;
             }
         }
     </style>
@@ -373,22 +386,10 @@
 
     <div class="container">
         <nav>
-            <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M16 4C10.4772 4 6 8.47715 6 14C6 19.5228 10.4772 24 16 24C21.5228 24 26 19.5228 26 14C26 8.47715 21.5228 4 16 4Z"
-                        stroke="url(#paint0_linear)" stroke-width="3" />
-                    <path d="M11 14C11 11.2386 13.2386 9 16 9C18.7614 9 21 11.2386 21 14" stroke="white"
-                        stroke-width="3" stroke-linecap="round" />
-                    <defs>
-                        <linearGradient id="paint0_linear" x1="6" y1="4" x2="26" y2="24" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#38BDF8" />
-                            <stop offset="1" stop-color="#818CF8" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+            <a href="#" class="logo">
+                <img src="images/app_icon.png" alt="DeskZen Logo">
                 DeskZen
-            </div>
+            </a>
             <div class="cta-group">
                 <a href="mailto:support@deskzen.app" class="footer-links"
                     style="margin:0; align-self:center">Support</a>
@@ -396,8 +397,9 @@
         </nav>
 
         <section class="hero">
-            <h1>Simplify <br>Your Focus</h1>
-            <p>Reclaim your digital workspace with one-click desktop cleaning and notification silencing.</p>
+            <h1>Clutter-Free <br>Clarity</h1>
+            <p>A minimalist macOS utility to hide desktop clutter and silence distracting notifications with one click.
+            </p>
             <div class="cta-group">
                 <a href="#" class="btn btn-primary">
                     Download on App Store
@@ -406,40 +408,39 @@
         </section>
 
         <div class="showcase reveal">
-            <div class="showcase-inner">
-                <img src="images/sc1.png" alt="DeskZen Interface" class="mockup">
-            </div>
+            <img src="images/sc1.png" alt="DeskZen Interface" class="mockup">
         </div>
 
         <section class="features">
             <div class="card reveal">
                 <i>👁️</i>
-                <h3>Infinite Clarity</h3>
-                <p>Instantly hide all desktop icons. No more visual noise during meetings or focused work hours.</p>
+                <h3>Infinite Focus</h3>
+                <p>Immediately hide all desktop icons. Perfect for high-stakes presentations or deep-work sprints.</p>
             </div>
             <div class="card reveal">
-                <i>�</i>
-                <h3>Absolute Silence</h3>
-                <p>One pull to silence all pings. Toggle system-wide Focus mode instantly from your menu bar.</p>
+                <i>🔇</i>
+                <h3>Pure Silence</h3>
+                <p>Silence system notifications with one click. Toggle macOS Focus mode directly from your menu bar.</p>
             </div>
             <div class="card reveal">
-                <i>💊</i>
-                <h3>State at a Glance</h3>
-                <p>Smart "Pill" indicators change colors to reflect your current mode. Green, Blue, Orange, or Purple.
+                <i>🌿</i>
+                <h3>Zen Aesthetics</h3>
+                <p>Elegant, high-contrast status indicators keep you informed without entering your peripheral vision.
                 </p>
             </div>
         </section>
 
         <div class="gallery">
-            <img src="images/sc2.png" alt="DeskZen Toggle" class="reveal">
-            <img src="images/sc3.png" alt="DeskZen Settings" class="reveal">
-            <img src="images/sc4.png" alt="DeskZen Full Zen" class="reveal" style="grid-column: span 2">
+            <img src="images/sc2.png" alt="DeskZen Interaction" class="reveal">
+            <img src="images/sc3.png" alt="DeskZen Status" class="reveal">
+            <img src="images/sc4.png" alt="DeskZen Full Zen Mode" class="reveal full">
         </div>
 
         <footer>
             <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="mailto:support@deskzen.app">Contact</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="mailto:support@deskzen.app">Support</a>
+                <a href="https://github.com/deepak-kumar/deskzen">GitHub</a>
             </div>
             <div class="copyright">
                 &copy; 2025 DeskZen. All rights reserved.
@@ -450,7 +451,8 @@
     <script>
         // Reveal animations on scroll
         const observerOptions = {
-            threshold: 0.1
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -463,12 +465,14 @@
 
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Mouse glow effect
+        // Smooth ambient movement
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth) * 100;
-            const y = (e.clientY / window.innerHeight) * 100;
-            document.querySelector('.blob').style.left = `${x - 20}%`;
-            document.querySelector('.blob').style.top = `${y - 20}%`;
+            const x = (e.clientX / window.innerWidth) * 50;
+            const y = (e.clientY / window.innerHeight) * 50;
+            const blob = document.querySelector('.blob');
+            const blob2 = document.querySelector('.blob-2');
+            if (blob) blob.style.transform = `translate(${x - 25}%, ${y - 25}%)`;
+            if (blob2) blob2.style.transform = `translate(${-(x - 25)}%, ${-(y - 25)}%)`;
         });
     </script>
 
